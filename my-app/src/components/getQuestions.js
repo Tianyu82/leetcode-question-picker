@@ -24,7 +24,7 @@ const GetQuestions = () =>{
 
     useEffect(() => {
         onSearchQuestion(searchText);
-    }, []);
+    }, [searchText]);
 
     return (
         <Fragment>
@@ -32,7 +32,7 @@ const GetQuestions = () =>{
                 <form>
                     Search questions by id or name : <input type="search" placeholder="Search Here" value={searchText} onChange={handleInputChange} />
                     <button type="button" class="ml-3" onClick={()=>onSearchQuestion(searchText)}>Search</button>
-                    <button type="button" class="ml-2">Clear</button>
+                    <button type="button" class="ml-2" onClick={()=>setSearchText("")}>Clear</button>
                 </form>
             </div>
             
