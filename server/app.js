@@ -43,6 +43,18 @@ app.get("/questions/:id", async (req, res)=>{
     }
 });
 
+//get a number of random records with the customized difficulty(mode)
+//mode = {easy, medium, hard}
+app.get("/questions/random/:num/:mode", async (req, res) =>{
+    try {
+        const {num, mode} = req.params;
+        const record = await pool.query("SELECT * FROM questions WHERE difficulty=$1 ORDER BY random() limit $2", [mode,num]);
+        res.json(record.rows);
+    } catch (err) {
+        console.error(err.message);
+    }
+});
+
 //update a record
 app.put("/questions/:id", async (req, res)=>{
     try {
