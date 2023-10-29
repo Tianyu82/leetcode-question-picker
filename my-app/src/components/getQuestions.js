@@ -28,28 +28,28 @@ const GetQuestions = () =>{
 
     return (
         <Fragment>
-            <div class="container mt-5 justify-content-center align-items-center">
+            <div className="container mt-5 justify-content-center align-items-center">
                 <form>
                     Search questions by id or name : <input type="search" placeholder="Search Here" value={searchText} onChange={handleInputChange} />
-                    <button type="button" class="ml-3" onClick={()=>onSearchQuestion(searchText)}>Search</button>
-                    <button type="button" class="ml-2" onClick={()=>setSearchText("")}>Clear</button>
+                    <button type="button" className="ml-3" onClick={()=>onSearchQuestion(searchText)}>Search</button>
+                    <button type="button" className="ml-2" onClick={()=>setSearchText("")}>Clear</button>
                 </form>
             </div>
             
-            <table class="table mt-5 text-center">
+            <table className="table mt-5 text-center">
                 <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Difficulty</th>
+                    <th id="thead_id">ID</th>
+                    <th id="thead_name">Name</th>
+                    <th id="thead_difficulty">Difficulty</th>
                 </tr>
                 </thead>
                 <tbody>
                 {questions.map(question=>(
                     <tr>
-                        <td>{question.question_id}</td>
-                        <td>{question.question_name}</td>
-                        <td>{question.difficulty}</td>
+                        <td id="trow_id">{question.question_id}</td>
+                        <td id="trow_name">{question.question_name}</td>
+                        <td id="trow_difficulty">{question.difficulty}</td>
                     </tr>
                 ))}
                 </tbody>
