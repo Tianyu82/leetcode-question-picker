@@ -8,7 +8,8 @@ const QuestionDifficulty = ()=>{
     const getQuestions = async (e) =>{
         e.preventDefault();
         try {
-            const response = await fetch(`http://localhost:5000/questions/random/3/Medium`); 
+            const modeName = parseModeName(difficulty);
+            const response = await fetch(`http://localhost:5000/questions/random/${modeName}`); 
             const jsonData = await response.json();
             console.log(jsonData);
             const names = jsonData.map(question => question.question_name); 
@@ -18,6 +19,8 @@ const QuestionDifficulty = ()=>{
             console.error(err.message);
         }
     };
+
+    const parseModeName = (difficulty) => difficulty.split(" ")[0];
 
     const convertQuestionNameToLink = (questionName)=>{
         let linkString = "https://leetcode.com/problems/";
@@ -49,7 +52,7 @@ const QuestionDifficulty = ()=>{
                 <ul>
                     {questionLinkNames.map((name, index) => (
                         <span key={index}>
-                            <a  href={name}> {name} </a>
+                            <li> <a  href={name}> {name} </a> </li>
                         </span>
                     ))}
                 </ul>

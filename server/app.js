@@ -44,11 +44,23 @@ app.get("/questions/:id", async (req, res)=>{
 });
 
 //get a number of random records with the customized difficulty(mode)
-//mode = {easy, medium, hard}
-app.get("/questions/random/:num/:mode", async (req, res) =>{
+//mode = {Chill, Moderate, Challenging}
+app.get("/questions/random/:mode", async (req, res) =>{
     try {
-        const {num, mode} = req.params;
-        const record = await pool.query("SELECT * FROM questions WHERE difficulty=$1 ORDER BY random() limit $2", [mode,num]);
+        const {mode} = req.params;
+        let num = [2,1,0];  //this is the deafult difficulty mix
+        switch (mode){
+            case "Chill":
+                num = [3,0,0];
+                break;
+            case "Moderate":
+                num = [2,1,0];
+                break;
+            case "Challenging":
+                num = [0,3,0];
+                break;
+        }
+        const record = await pool.query("(SELECT * FROM questions WHERE difficulty='Easy' ORDER BY random() limit $1) UNION (SELECT * FROM questions WHERE difficulty='Medium' ORDER BY random() limit $2) UNION (SELECT * FROM questions WHERE difficulty='Hard' ORDER BY random() limit $3)", [num[0], num[1], num[2]]);
         res.json(record.rows);
     } catch (err) {
         console.error(err.message);
