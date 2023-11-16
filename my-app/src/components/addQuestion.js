@@ -1,11 +1,13 @@
 import React from 'react';
 import {Fragment, useState} from 'react';
+import ModalAddQuestion from './modalAddQuestion';
 
 const AddQuestions = () =>{
 
     const [id, setID] = useState("");
     const [name, setName] = useState("");
     const [difficulty, setDifficulty] = useState("Easy");
+    const [modal, setModal] = useState(false);
     
     const onSubmitForm = async () =>{
         try {
@@ -23,6 +25,11 @@ const AddQuestions = () =>{
             });
 
             console.log(response);
+
+            if(true){   //NEED TO ADD MORE CONDITION CHECKING HERE !!!
+                setModal(true);
+            }
+
         } catch (err) {
             console.error(err.message);
         }
@@ -43,6 +50,7 @@ const AddQuestions = () =>{
                         <option value="Hard" id="opt_hard">Hard</option>
                     </select>
                     <button type="button" className="btn ml-5" onClick={onSubmitForm}>Add</button>
+                    <ModalAddQuestion trigger={modal} setTrigger={setModal}></ModalAddQuestion>
                 </form>
             </div>
             
